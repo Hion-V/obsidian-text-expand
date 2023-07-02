@@ -136,14 +136,12 @@ export default class TextExpander extends Plugin {
 
     async onload() {
         this.addSettingTab(new SettingTab(this.app, this));
-        const indexOfRendered = ctx.containerEl.classList.value.indexOf("markdown-rendered");
-        if(indexOfRendered < 0){
-            this.registerMarkdownCodeBlockProcessor('expander', (source, el, ctx) => {
-                el
-                    .createDiv()
-                    .createEl('button', {text: 'Run expand query'})
-                    .addEventListener('click', this.init.bind(this, false, ctx.getSectionInfo(el).lineStart))
-            }
+
+        this.registerMarkdownCodeBlockProcessor('expander', (source, el, ctx) => {
+            el
+                .createDiv()
+                .createEl('button', {text: 'Run expand query'})
+                .addEventListener('click', this.init.bind(this, false, ctx.getSectionInfo(el).lineStart))
         });
 
         this.addCommand({
